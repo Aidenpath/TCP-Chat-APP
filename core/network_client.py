@@ -13,14 +13,14 @@ class ChatClient:
         self.running = False
 
     def connect(self, host, port, username):
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # 使用TCP协议
         try:
             self.socket.connect((host, int(port)))
             self.username = username
             self.running = True
             
-            # 发送登录包 [cite: 19]
-            login_packet = {"type": "login", "username": username}
+            # 发送登录包 
+            login_packet = {"type": "login", "username": username} # 将登陆信息发送给server
             self.socket.sendall(encode_msg(login_packet))
             
             # 开启接收线程
@@ -46,7 +46,7 @@ class ChatClient:
     def send_message(self, content, target=None):
         if not self.socket or not self.running:
             return
-        # 根据有无 target 区分公聊/私聊 [cite: 18]
+        # 根据有无 target 区分公聊/私聊
         msg_type = "private" if target else "public"
         msg = {"type": msg_type, "content": content}
         if target:

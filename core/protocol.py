@@ -13,21 +13,21 @@ def encode_msg(msg_dict: dict) -> bytes:
     return header + json_bytes
 
 def decode_msg(conn) -> dict | None:
-    """从Socket连接中安全读取一个完整的JSON消息，具有中断性质"""
+    """从Socket连接中安全读取一个完整的JSON消息"""
     try:
         # 1. 读取4字节长度头
-        header = conn.recv(4) # 中断
+        header = conn.recv(4)
         if not header or len(header) < 4:
             return None
-        msg_len = struct.unpack('>I', header)[0]
+        msg_len = struct.unpack('>I', header)[0] # 采用大端序的读取方式，解析出消息的长度
         
         # 2. 根据长度读取消息体
-        data = b''
+        data = b'' # 空的byte对象
         while len(data) < msg_len:
             packet = conn.recv(msg_len - len(data))
             if not packet:
                 return None
             data += packet
-        return json.loads(data.decode('utf-8'))
+        return json.loads(data.decode('utf-8')) # 将读取的信息转为json字典格式
     except Exception:
         return None
