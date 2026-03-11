@@ -4,7 +4,7 @@
 
 ## 🌟 核心功能
 
-* **跨平台互通**：支持 Windows / Linux 终端在同一局域网下无缝连接。
+* **跨平台互通**：支持 Windows / Linux 终端在同一局域网下无缝连接。并可以打包为安卓应用程序。
 * **高并发支持**：服务端基于多线程 (Threading) 架构，独立处理每一个客户端的读写阻塞。
 * **实时在线列表**：动态广播用户上线、下线状态，展示当前活跃用户的昵称与 IP。
 * **群聊与私聊**：
@@ -65,3 +65,55 @@ Port：默认 8888。
 Username：输入你喜欢的任意昵称。
 
 点击 Connect 进入聊天大厅，左侧选择用户即可切换私聊/群聊模式！
+
+## 📱 安卓端打包指南 (Bonus)
+
+本项目基于 Kivy 框架开发，原生支持通过 Buildozer 工具链将客户端打包为独立的安卓 APK 文件。
+
+### 1. 环境准备 (Linux)
+由于底层的编译依赖项，强烈建议在 Linux 环境（如 Ubuntu 虚拟机）下进行打包操作。
+> **⚠️ 避坑指南：Python 版本兼容性**
+> 经测试，Buildozer 目前对部分较新的 Python 版本（如 3.13）存在兼容性问题。强烈推荐使用 Conda 创建一个 **Python 3.11** 的干净虚拟环境进行打包：
+> ```bash
+> conda create -n kivy_pack python=3.11
+> conda activate kivy_pack
+> pip install buildozer cython
+> ```
+
+### 2. 准备打包文件
+Buildozer 默认寻找 `main.py` 作为安卓应用的启动入口。我们需要在项目根目录下，把客户端入口文件复制并重命名：
+```bash
+cp client_main.py main.py
+```
+
+### 3. 初始化与配置 Buildozer
+在项目根目录运行初始化命令：
+
+```bash
+buildozer init
+```
+这会生成一个 buildozer.spec 配置文件。请打开它，并修改以下极其关键的几个配置项：
+
+```bash
+# 1. 确保包含中文字体文件，否则手机端会显示为乱码豆腐块！
+source.include_exts = py,png,jpg,kv,atlas,ttc,ttf
+
+
+# 2. 声明 Python 和 Kivy 依赖
+requirements = python3,kivy
+
+# 3. 开启安卓网络访问权限（极重要：若不开启，点击 Connect 会直接闪退）
+android.permissions = INTERNET
+```
+4. 编译生成 APK
+配置完成后，在终端执行以下命令开始打包：
+
+```bash
+buildozer android debug
+```
+注：首次打包会自动下载庞大的 Android SDK 和 NDK 依赖环境，耗时较长（可能需要 15-30 分钟），请保持网络畅通并耐心等待。编译成功后，生成的 APK 文件会保存在项目新增的 bin/ 目录下。
+
+5. 手机端测试与联调
+将编译好的 APK 安装到安卓手机上。
+
+局域网直连：确保手机和运行 Server 的电脑连入同一个局域网（同一 WiFi），在 App 登录页填入 Server 的局域网 IPv4 地址即可。
