@@ -1,0 +1,15 @@
+# Python 编译缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虚拟环境
+venv/
+.env/
+
+# 编辑器配置
+.vscode/
+
+# 操作系统生成文件
+.DS_Store
+Thumbs.db
