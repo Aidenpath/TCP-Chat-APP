@@ -30,7 +30,7 @@ PROJECT_FOR_CHAT/
 └── NotoSansCJK-Black.ttc    # 全局中文字体文件
 
 
-🛠️ 环境准备
+## 🛠️ 环境准备(linux)
 Python 版本：推荐使用 Python 3.10 或以上版本。
 
 安装依赖：
@@ -38,7 +38,7 @@ Python 版本：推荐使用 Python 3.10 或以上版本。
 
 pip install -r requirements.txt
 
-🚀 部署与运行指南
+## 🚀 部署与运行指南
 本项目为标准的 C/S 架构，必须先启动服务端，再启动客户端。
 
 1. 启动服务器 (Server)
