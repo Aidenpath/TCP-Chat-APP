@@ -28,31 +28,33 @@ PROJECT_FOR_CHAT/
 ├── server_main.py           # 服务端启动入口
 ├── requirements.txt         # 项目第三方依赖清单
 └── NotoSansCJK-Black.ttc    # 全局中文字体文件
+```
 
-
-## 🛠️ 环境准备(linux)
+## 🛠️ 环境准备
 Python 版本：推荐使用 Python 3.10 或以上版本。
 
 安装依赖：
 在终端进入项目根目录，执行以下命令安装 Kivy 图形框架依赖：
-
+```bash
 pip install -r requirements.txt
-
+```
 ## 🚀 部署与运行指南
 本项目为标准的 C/S 架构，必须先启动服务端，再启动客户端。
 
 1. 启动服务器 (Server)
 在局域网内找一台电脑作为中心服务器，打开终端运行：
 
+```bash
 python server_main.py
+```
 
 提示：服务器启动后，会在终端打印类似 Server started, listening on 0.0.0.0:8888 的日志。请使用 ifconfig或ip a (Linux) ，或 ipconfig (Windows) 查询并记录这台机器的局域网 IPv4 地址。
 
 2. 启动客户端 (Client)
 在同一局域网下的其他电脑（或本机新开一个终端），运行：
-
+```bash
 python client_main.py
-
+```
 3. 连接与使用
 客户端启动后，会弹出图形登录界面。
 
