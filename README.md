@@ -41,7 +41,7 @@ pip install -r requirements.txt
 ## 🚀 部署与运行指南
 本项目为标准的 C/S 架构，必须先启动服务端，再启动客户端。
 
-1. 启动服务器 (Server)
+### 1. 启动服务器 (Server)
 在局域网内找一台电脑作为中心服务器，打开终端运行：
 
 ```bash
@@ -50,12 +50,12 @@ python server_main.py
 
 提示：服务器启动后，会在终端打印类似 Server started, listening on 0.0.0.0:8888 的日志。请使用 ifconfig或ip a (Linux) ，或 ipconfig (Windows) 查询并记录这台机器的局域网 IPv4 地址。
 
-2. 启动客户端 (Client)
+### 2. 启动客户端 (Client)
 在同一局域网下的其他电脑（或本机新开一个终端），运行：
 ```bash
 python client_main.py
 ```
-3. 连接与使用
+### 3. 连接与使用
 客户端启动后，会弹出图形登录界面。
 
 Server IP：填入刚才查询到的服务器局域网 IP（如果在同一台电脑上自测，可直接填写 127.0.0.1）。
@@ -105,7 +105,7 @@ requirements = python3,kivy
 # 3. 开启安卓网络访问权限（极重要：若不开启，点击 Connect 会直接闪退）
 android.permissions = INTERNET
 ```
-4. 编译生成 APK
+### 4. 编译生成 APK
 配置完成后，在终端执行以下命令开始打包：
 
 ```bash
@@ -113,7 +113,7 @@ buildozer android debug
 ```
 注：首次打包会自动下载庞大的 Android SDK 和 NDK 依赖环境，耗时较长（可能需要 15-30 分钟），请保持网络畅通并耐心等待。编译成功后，生成的 APK 文件会保存在项目新增的 bin/ 目录下。
 
-5. 手机端测试与联调
+### 5. 手机端测试与联调
 将编译好的 APK 安装到安卓手机上。
 
 局域网直连：确保手机和运行 Server 的电脑连入同一个局域网（同一 WiFi），在 App 登录页填入 Server 的局域网 IPv4 地址即可。
